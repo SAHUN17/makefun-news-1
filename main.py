@@ -1,6 +1,7 @@
-"""make.fun ai-happy-01 entry.
+"""Publish the 13 November 2026 front page for the make.fun news-image-01 bounty.
 
-Copies the entry image (entry.png) into /output/entry.png.
+Copies the bundled ``entry.png`` into the output directory as ``entry.png``,
+creating the output directory first if it does not yet exist.
 """
 
 import os
@@ -10,17 +11,19 @@ SRC_NAME = "entry.png"
 OUT_DIR = "/output"
 
 
-def copy_entry() -> str:
-    """Copy the entry image into OUT_DIR and return the destination path."""
+def publish(output_dir: str = OUT_DIR) -> str:
+    """Copy the entry image into ``output_dir`` and return the destination path."""
     src = os.path.join(os.path.dirname(os.path.abspath(__file__)), SRC_NAME)
-    dest = os.path.join(OUT_DIR, SRC_NAME)
-    os.makedirs(OUT_DIR, exist_ok=True)
+    os.makedirs(output_dir, exist_ok=True)
+    dest = os.path.join(output_dir, SRC_NAME)
     shutil.copyfile(src, dest)
     return dest
 
 
 def main() -> None:
-    print(copy_entry())
+    # Honor ENTRY_OUTPUT_DIR so the script can be verified against a temp dir.
+    output_dir = os.environ.get("ENTRY_OUTPUT_DIR", OUT_DIR)
+    print(publish(output_dir))
 
 
 if __name__ == "__main__":
