@@ -7,15 +7,15 @@ creating the output directory first if it does not yet exist.
 import os
 import shutil
 
-SRC_NAME = "entry.png"
+ENTRY_NAME = "entry.png"
 OUT_DIR = "/output"
 
 
 def publish(output_dir: str = OUT_DIR) -> str:
     """Copy the entry image into ``output_dir`` and return the destination path."""
-    src = os.path.join(os.path.dirname(os.path.abspath(__file__)), SRC_NAME)
+    src = os.path.join(os.path.dirname(os.path.abspath(__file__)), ENTRY_NAME)
     os.makedirs(output_dir, exist_ok=True)
-    dest = os.path.join(output_dir, SRC_NAME)
+    dest = os.path.join(output_dir, ENTRY_NAME)
     shutil.copyfile(src, dest)
     return dest
 
